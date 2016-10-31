@@ -3,19 +3,21 @@ import { IndexLink, Link } from 'react-router'
 import './Header.scss'
 
 export const Header = () => (
-  <div>
+  <div className="component-header text-center">
     <h1>Most Active Languages @ Github</h1>
+
     <IndexLink to='/' activeClassName='route--active'>
       Home
     </IndexLink>
     {' · '}
-    <Link to='/counter' activeClassName='route--active'>
-      Counter
+    <Link to='/stats' activeClassName='route--active'>
+      Graph
     </Link>
     {' · '}
-    <Link to='/stats' activeClassName='route--active'>
-      Stats
+    <Link to='/stats-list' activeClassName='route--active'>
+      Raw List
     </Link>
+
   </div>
 )
 

@@ -1,4 +1,23 @@
-.route--active {
-  font-weight: normal;
-  text-decoration: underline;
+@import '../../styles/variables/colors';
+.component-header {
+  background: $clr_blue;
+  padding: 1rem 0;
+
+  h1{
+    color: $clr_light;
+    padding:.4rem 0;
+    margin:0;
+  }
+
+  a{
+    color: $clr_orange;
+    padding:.4rem;
+
+    &.route--active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
 }
+
+

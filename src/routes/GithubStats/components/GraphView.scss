@@ -1,9 +1,13 @@
+@import '../../../styles/variables/colors';
+
 .displaysWrapper {
   position: relative;
+  margin: 2rem 0 0;
 }
 
 svg{
   position: absolute;
+  background: rgba(0,0,0,0);
   top:0;
   left:0;
   right:0;
@@ -18,11 +22,11 @@ svg{
     display: none;
   }
 
-  &.active{
+  &:not(.leaf).active{
     circle {
-      stroke: #fff4c2;
+      stroke: $clr_light;
       stroke-width: 1px;
-      fill: #ff7f0e;
+      fill: $clr_orange;
       fill-opacity: .25;
     }
     text {
@@ -31,7 +35,7 @@ svg{
       user-select: none;
       font: 10px sans-serif;
       text-anchor: middle;
-      fill: #fff4c2;
+      fill: $clr_light;
     }
   }
 }

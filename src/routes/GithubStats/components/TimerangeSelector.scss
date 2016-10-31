@@ -1,0 +1,40 @@
+@import '../../../styles/variables/colors';
+
+$lineHeight: 3rem;
+.component-timerangeSelector{
+  button{
+    background:$clr_orange;
+    line-height:$lineHeight;
+    color:$clr_light;
+    padding:0 1rem;
+    border:none;
+
+    &.active{
+      font-weight: bold;
+      background:$clr_blue;
+    }
+
+    &:not(.active):disabled{
+      opacity: .6;
+    }
+
+    &:not(:disabled):hover{
+      text-decoration: underline;
+    }
+
+    &:not(:first-of-type) {
+      border-left:1px solid $clr_light;
+    }
+
+    &:first-of-type{
+      padding-left:$lineHeight/2;
+      border-top-left-radius: $lineHeight/2;
+      border-bottom-left-radius: $lineHeight/2;
+    }
+    &:last-of-type{
+      padding-right:$lineHeight/2;
+      border-top-right-radius: $lineHeight/2;
+      border-bottom-right-radius: $lineHeight/2;
+    }
+  }
+}
