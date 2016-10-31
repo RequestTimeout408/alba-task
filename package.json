@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "3.0.0-alpha.2",
-  "description": "Get started with React, Redux, and React-Router!",
+  "name": "AlbacrossTask",
+  "version": "0.1.0",
+  "description": "Task for Albacross, October 2016",
   "main": "index.js",
   "engines": {
     "node": ">=4.5.0",
@@ -73,7 +73,7 @@
     "type": "git",
     "url": "git+https://github.com/davezuko/react-redux-starter-kit.git"
   },
-  "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
+  "author": "Love Mayrhofer",
   "license": "MIT",
   "dependencies": {
     "babel-loader": "^6.2.5",
@@ -83,8 +83,10 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^6.11.6",
     "better-npm-run": "0.0.11",
+    "browser-request": "^0.3.3",
     "css-loader": "^0.25.0",
     "cssnano": "^3.7.4",
+    "d3": "^4.3.0",
     "debug": "^2.2.0",
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
@@ -102,10 +104,14 @@
     "react-router": "^2.8.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.0.0",
+    "request": "^2.76.0",
+    "require": "^2.4.20",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
+    "three": "^0.82.1",
     "url-loader": "^0.5.6",
+    "vis": "^4.16.1",
     "webpack": "^1.12.14",
     "yargs": "^5.0.0"
   },

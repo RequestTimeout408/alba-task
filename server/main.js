@@ -25,7 +25,7 @@ if (config.env === 'development') {
     hot         : true,
     quiet       : config.compiler_quiet,
     noInfo      : config.compiler_quiet,
-    lazy        : false,
+    lazy        : true,
     stats       : config.compiler_stats
   }))
   app.use(require('webpack-hot-middleware')(compiler))
