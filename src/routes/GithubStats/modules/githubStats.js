@@ -29,7 +29,7 @@ function selectStartDate(dateString) {
   return (dispatch, getState) => {
 
     let fromDate = dateString;
-    if(!fromDate){
+    if (!fromDate) {
       fromDate = getSelectedDate(getState())
     }
 
@@ -40,7 +40,7 @@ function selectStartDate(dateString) {
     dispatch({type: API_GET_START});
 
 
-    const langs = ['javascript', 'java'];//, 'Python', 'CSS', 'PHP', 'Ruby', 'C++', 'Shell'];
+    const langs = ['javascript', 'java', 'Python'];//, 'CSS', 'PHP', 'Ruby', 'C++', 'Shell'];
 
     return Promise.all(langs.map(lang=> {
 
@@ -80,14 +80,15 @@ function selectStartDate(dateString) {
         });
       }
     ))
-      .then(function (langBodyPairs) {
-        /// Dispatch action with all bodies
-        dispatch({type: API_ALL_DONE, payload: langBodyPairs});
-      })
-      .catch(e => {
-        console.error(e.stack);
-        dispatch({type: API_GET_ERROR});
-      });
+      .then(
+        langBodyPairs => {
+          /// Dispatch action with all bodies
+          dispatch({type: API_ALL_DONE, payload: langBodyPairs});
+        },
+        error => {
+          dispatch({type: API_GET_ERROR});
+        }
+      )
   }
 }
 
@@ -116,14 +117,14 @@ export const actions = {
 // Reducers
 // ------------------------------------
 const initialState = {
-  items: {name:'',size:1},
+  items: {name: '', size: 1},
   startDate: '2016-10-01',
   expandedItems: {},
   status: 'done',
   cache: {},
 };
 
-export const getSelectedDate= (state) => state.stats.startDate;
+export const getSelectedDate = (state) => state.stats.startDate;
 export const getCachedURL = (state, url) => state.stats.cache[url];
 
 
@@ -176,9 +177,18 @@ const items = (state = initialState.items, action) => {
 
 const expandedItems = (state = initialState.expandedItems, action) => {
   switch (action.type) {
+    case API_GET_START:
+      return {};
     case API_ALL_DONE:
       ///Reset selections after receiving new data set
+      const langBodyPairs = action.payload;
+      const baseState = {'Github': true};
+      langBodyPairs.forEach(
+        ({language}) => baseState[language] = true
+      );
+      return baseState;
       return {};
+
     case EXPAND_ITEM:
       return {
         ...state,

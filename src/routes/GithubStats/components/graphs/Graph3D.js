@@ -70,7 +70,7 @@ export default class Graph3D extends React.Component {
 
     /// Check if the new props are triggering any animations (expandedItems have changed)
     if (!_.isEqual(nextProps.expandedItems, lastProps.expandedItems)) {
-
+      console.log("---- 3D ---- Toggling items");
       Object.keys(nextProps.expandedItems).forEach(key => {
         const val = nextProps.expandedItems[key];
         if( this.props.expandedItems[key] != val){

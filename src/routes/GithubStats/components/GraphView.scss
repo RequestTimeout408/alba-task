@@ -20,22 +20,22 @@ svg{
   }
   text{
     display: none;
+    cursor: default;
+    user-select: none;
+    font: 10px sans-serif;
+    text-anchor: middle;
+    fill: $clr_light;
   }
 
-  &:not(.leaf).active{
+  &.active{
     circle {
       stroke: $clr_light;
       stroke-width: 1px;
-      fill: $clr_orange;
-      fill-opacity: .25;
+      //fill: $clr_orange;
+      //fill-opacity: .25;
     }
     text {
       display: block;
-      cursor: default;
-      user-select: none;
-      font: 10px sans-serif;
-      text-anchor: middle;
-      fill: $clr_light;
     }
   }
 }

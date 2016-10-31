@@ -25,8 +25,8 @@ export default class Graph2D extends React.Component {
     return !_.isEqual(nextProps.items, this.props.items);
   }
 
-  componentDidMount(){
-    this.buildSVG(this.props.items);
+  componentDidMount() {
+    this.buildSVG(this.props.items, this.props.expandedItems);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,19 +34,21 @@ export default class Graph2D extends React.Component {
       //svg.selectAll("*").remove();
       return;
     }
-    if (_.isEqual(nextProps.items, this.props.items)) {
-      return;
+
+    if (
+      !_.isEqual(nextProps.items, this.props.items) || !_.isEqual(nextProps.expandedItems, this.props.expandedItems)
+    ) {
+      this.buildSVG(nextProps.items, nextProps.expandedItems);
     }
 
-    this.buildSVG(nextProps.items);
   }
 
   componentDidUpdate() {
-    this.buildSVG(this.props.items);
+    this.buildSVG(this.props.items, this.props.expandedItems);
   }
 
-  buildSVG(items) {
-    if(!items){
+  buildSVG(items, expandedItems) {
+    if (!items) {
       return;
     }
 
@@ -61,11 +63,16 @@ export default class Graph2D extends React.Component {
     const node = g.selectAll(".node")
       .data(descendants)
       .enter().append("g")
-      .attr("id", function (d) {
-        return safeClassName(d.data.name);
-      })
-      .attr("class", function (d) {
-        return d.children ? "node" : "leaf node";
+      .attr("id", d => safeClassName(d.data.name))
+      .attr("class", d => {
+
+        const isItemExpanded = isExpanded(d);
+        const hasExpandedParent = isExpanded(itemParent(d));
+        const isActive = !isItemExpanded && hasExpandedParent;
+
+        return "node" +
+          (!d.children ? ' leaf' : '' ) +
+          (isActive ? ' active' : '')
       })
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
@@ -80,7 +87,7 @@ export default class Graph2D extends React.Component {
     }
 
     function isExpanded(d) {
-      return self.props.expandedItems[d.data.name];
+      return d && expandedItems[d.data.name];
     }
 
     function itemParent(d) {
@@ -92,7 +99,7 @@ export default class Graph2D extends React.Component {
     function highlightClosestOpen(d) {
 
       /// If the hovered item is tagged as visible or is the root, make it active in the view.
-      if (d.children && ( self.props.expandedItems[d.data.name] || d.depth === 0)) {
+      if (/*d.children &&*/ ( expandedItems[d.data.name] || d.depth === 0)) {
         svg.selectAll(".active").classed("active", false);
         svg.selectAll("#" + safeClassName(d.data.name)).classed("active", true);
       }
@@ -106,31 +113,31 @@ export default class Graph2D extends React.Component {
       }
     }
 
-    function hasOpenChildren(d){
-      if( !d.children ) return false;
-      if( d.children.some( c => self.props.expandedItems[c.data.name] ) ){
+    function hasOpenChildren(d) {
+      if (!d.children) return false;
+      if (d.children.some(c => expandedItems[c.data.name])) {
         return true;
       }
-      return d.children.some( hasOpenChildren );
+      return d.children.some(hasOpenChildren);
     }
 
     function onCircleClick(d) {
 
       /// "Bubble" clicks on leafs for now
-      if(!d.children){
-        return onCircleClick( itemParent(d) );
+      if (!d.children) {
+        return onCircleClick(itemParent(d));
       }
 
       const toOpen = highestClosedParent(d);
-      if(toOpen){
+      if (toOpen) {
         ///Only open items with children
-        if(toOpen.children){
+        if (toOpen.children) {
           self.props.onItemOpened(toOpen);
         }
       }
-      else{
+      else {
         /// Close selected group if is has no open children
-        if(!hasOpenChildren(d)){
+        if (!hasOpenChildren(d)) {
           self.props.onItemClosed(d);
         }
       }
@@ -139,11 +146,12 @@ export default class Graph2D extends React.Component {
     node.append("circle")
       .attr("r", d => d.r)
       .on("click", onCircleClick)
-      .on("mouseover", _.debounce(highlightClosestOpen, 50));
+    //.on("mouseover", _.debounce(highlightClosestOpen, 50));
 
     node.append("text")
       .attr("dy", "0.3em")
-      .text(d => d.data.name.substring(0, d.r / 3));
+      .text(d => d.data.name.substring(0, d.r / 3))
+      .on("click", onCircleClick);
   }
 }
 
