@@ -24,8 +24,9 @@ const apiGet = () => {
     dispatch({type: API_GET_START});
 
 
+    //TODO: cache!!
     let since = '>2016-10-01';
-    let langs = ['javascript', 'go', 'c', 'ruby', 'java', 'clojure'];
+    let langs = ['javascript', 'java', 'Python', 'CSS', 'PHP', 'Ruby', 'C++', 'Shell'];
 
     return Promise.all(langs.map(lang=> {
 

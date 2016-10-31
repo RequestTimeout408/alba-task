@@ -4,6 +4,14 @@ import './GraphView.scss'
 
 let demo = {};
 
+function safeClassName(n){
+  //TODO:dont use this shit...
+  return "__"+(n+"-")
+    .split('.').join('__')
+    .split('#').join('__')
+    .split('+').join('__');
+}
+
 class Orbs3D {
 
   constructor(holder) {
@@ -182,7 +190,7 @@ export default class GraphView extends React.Component {
       format = d3.format(",d");
 
     let pack = d3.pack()
-      .size([diameter - 4, diameter - 4]);
+      .size([diameter, diameter]);
 
     let root = d3.hierarchy(this.props.items)
       .sum(function (d) {
@@ -200,7 +208,7 @@ export default class GraphView extends React.Component {
       .data(descendants)
       .enter().append("g")
       .attr("id", function (d) {
-        return d.data.name.split(".").join("-");
+        return safeClassName(d.data.name);
       })
       .attr("class", function (d) {
         return d.children ? "node" : "leaf node";
@@ -213,7 +221,7 @@ export default class GraphView extends React.Component {
     function highlightClosestOpen(d){
       if(d.data.isExpanded || d.depth === 0){
         g.selectAll(".active").classed("active", false );
-        g.selectAll("#"+d.data.name.split(".").join("-")).classed("active", true );
+        g.selectAll("#"+safeClassName(d.data.name)).classed("active", true );
       }
       else {
         const parent = descendants.find(c=> {
@@ -233,7 +241,8 @@ export default class GraphView extends React.Component {
         this.orbsRender.openByName(d.data.name);
         d3.event.stopPropagation();
       })
-      .on("mouseover", highlightClosestOpen); //TODO:debounce
+      .on("mouseover", highlightClosestOpen); //TODO:debounce AND TOGGLE!!
+    //TODO:mouse out
 
 
 
