@@ -40,6 +40,5 @@ describe('(Component) Header', () => {
         </Link>
       )).to.be.true
     })
-
   })
 })

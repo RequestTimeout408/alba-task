@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const HomeView = () => (
-  <div className="text-left">
+  <div className='text-left'>
     <h2>About this project</h2>
     <p>
       The main focus of this project is the mixed 2D/3D rendering of Github language and repo activity.

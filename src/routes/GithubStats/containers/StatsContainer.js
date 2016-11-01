@@ -8,11 +8,11 @@ import GraphView from '../components/GraphView'
 
 const mapDispatchToProps = {
   ...actions
-};
+}
 
-const mapStateToProps = ({stats}) => ({
+const mapStateToProps = ({ stats }) => ({
   ...stats
-});
+})
 
-export const Dump = connect(mapStateToProps, mapDispatchToProps)(RawView);
-export const Graph = connect(mapStateToProps, mapDispatchToProps)(GraphView);
+export const Dump = connect(mapStateToProps, mapDispatchToProps)(RawView)
+export const Graph = connect(mapStateToProps, mapDispatchToProps)(GraphView)

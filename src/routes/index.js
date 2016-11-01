@@ -1,8 +1,8 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
-import {Graph, Dump} from './GithubStats/containers/StatsContainer'
-import {actions as githubActions} from './GithubStats/modules/githubStats'
+import { Graph, Dump } from './GithubStats/containers/StatsContainer'
+import { actions as githubActions } from './GithubStats/modules/githubStats'
 
 export const createRoutes = (store) => (
   {
@@ -12,20 +12,20 @@ export const createRoutes = (store) => (
     childRoutes : [
       {
         path: '/stats',
-        indexRoute:{component:Graph},
+        indexRoute:{ component:Graph },
         onEnter: () => {
-          githubActions.selectStartDate()(store.dispatch, store.getState);
+          githubActions.selectStartDate()(store.dispatch, store.getState)
         }
       },
       {
         path: '/stats-list',
-        indexRoute:{component:Dump},
+        indexRoute:{ component:Dump },
         onEnter: () => {
-          githubActions.selectStartDate()(store.dispatch, store.getState);
+          githubActions.selectStartDate()(store.dispatch, store.getState)
         }
       }
     ]
-  });
+  })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
     using getChildRoutes with the following signature:

@@ -13,5 +13,4 @@ describe('(View) Home', () => {
     const text = _component.find('p')
     expect(text).to.exist
   })
-
 })
