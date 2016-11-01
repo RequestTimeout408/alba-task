@@ -166,8 +166,8 @@ export default class Graph3D extends React.Component {
 
     // / Render current data
     descendants.forEach(circle => {
-      const spehereSegs = Math.pow(2, 7 - circle.depth)
-      const geometry = new THREE.SphereBufferGeometry(circle.r, spehereSegs, spehereSegs)
+      const sphereSegs = Math.pow(2, 7 - circle.depth)
+      const geometry = new THREE.SphereBufferGeometry(circle.r, sphereSegs, sphereSegs)
 
       const material = new THREE.MeshPhongMaterial({
         color:0x1f77b4,
