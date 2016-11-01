@@ -13,7 +13,7 @@ describe('(Component) Header', () => {
   it('Renders a welcome message', () => {
     const welcome = _wrapper.find('h1')
     expect(welcome).to.exist
-    expect(welcome.text()).to.match(/React Redux Starter Kit/)
+    expect(welcome.text()).to.match(/Most Active Languages @ Github/)
   })
 
   describe('Navigation links...', () => {
@@ -25,12 +25,21 @@ describe('(Component) Header', () => {
       )).to.be.true
     })
 
-    it('Should render a Link to Counter route', () => {
+    it('Should render a Link to Graph route', () => {
       expect(_wrapper.contains(
-        <Link activeClassName='route--active' to='/counter'>
-          Counter
+        <Link activeClassName='route--active' to='/stats'>
+          Graph
         </Link>
       )).to.be.true
     })
+
+    it('Should render a Link to Raw List route', () => {
+      expect(_wrapper.contains(
+        <Link activeClassName='route--active' to='/stats-list'>
+          Raw List
+        </Link>
+      )).to.be.true
+    })
+
   })
 })
